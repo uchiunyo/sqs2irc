@@ -4,7 +4,7 @@ public class SQSConfig {
 	//TBD parameters must start small char but elicpse source generator create accessor starts small char, so below parameter starts large char.
 	private String AWSAccessKey;
 	private String AWSSecretKey;
-	private String SQSEndpoint;
+	private String SQSURL;
 	private String IRCServer;
 	private int IRCPort;
 	private String IRCChannel;
@@ -20,12 +20,6 @@ public class SQSConfig {
 	}
 	public void setAWSSecretKey(String aWSSecretKey) {
 		AWSSecretKey = aWSSecretKey;
-	}
-	public String getSQSEndpoint() {
-		return SQSEndpoint;
-	}
-	public void setSQSEndpoint(String sQSEndpoint) {
-		SQSEndpoint = sQSEndpoint;
 	}
 	public String getIRCServer() {
 		return IRCServer;
@@ -50,5 +44,11 @@ public class SQSConfig {
 	}
 	public void setIRCPort(int iRCPort) {
 		IRCPort = iRCPort;
+	}
+	public String getSQSURL() {
+		return SQSURL;
+	}
+	public void setSQSURL(String sQSURL) {
+		SQSURL = sQSURL;
 	}
 }

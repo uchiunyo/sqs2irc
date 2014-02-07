@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import net.arnx.jsonic.JSON;
+
 import com.amazonaws.services.sqs.model.Message;
 
 public class ExecutorManager {
@@ -13,10 +15,14 @@ public class ExecutorManager {
 	private static List<SQS> sqsList = new ArrayList<SQS>();
 
 	public static void execute() {
-		Config config = Config.load();
-		List<SQSConfig> sqsConfigs = config.getSQSConfig();
+		execute("config.xml");
+	}
+	
+	public static void execute(String configPath) {
+		Config config = Config.load(configPath);
+		List<SQSConfig> sqsConfigs = config.getSqsConfig();
 		for (final SQSConfig sqsConfig : sqsConfigs) {
-			final SQS sqs = new SQS(sqsConfig.getAWSAccessKey(), sqsConfig.getAWSSecretKey(), sqsConfig.getSQSEndpoint());
+			final SQS sqs = new SQS(sqsConfig.getAWSAccessKey(), sqsConfig.getAWSSecretKey(), sqsConfig.getSQSURL());
 			final IRC ircServer;
 			if (ircServerMap.containsKey(sqsConfig.getIRCServer())) {
 				ircServer = ircServerMap.get(sqsConfig.getIRCServer());
@@ -33,7 +39,7 @@ public class ExecutorManager {
 			sqs.listen(new SQS.SQSListener() {
 				public void onMessage(Message message) {
 					try {
-						ircServer.sendMessage(sqsConfig.getIRCChannel(), message.getBody());
+						ircServer.sendMessage(sqsConfig.getIRCChannel(), JSON.decode(message.getBody(),Map.class).get("Message").toString());
 						sqs.deleteMessage(message.getReceiptHandle());
 					} catch (IOException e) {
 						Log.error("sendMessage error to server " + sqsConfig.getIRCServer() + ", message is " + message.getBody(), e);

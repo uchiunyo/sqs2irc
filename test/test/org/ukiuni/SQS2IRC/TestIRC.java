@@ -14,9 +14,9 @@ import org.ukiuni.sqs2irc.IRC;
 public class TestIRC {
 
 	@Test
-	public void test() throws IOException, InterruptedException {
+	public void testSendMessage() throws IOException, InterruptedException {
 		int port = 10888;
-		String channel = "testChannel";
+		String channel = "#testChannel";
 		IRCServer ircServer = new IRCServer();
 		ircServer.start();
 		IRCClient client = new IRCClient("localhost", port, "test1", "localhost", "test1");
@@ -34,8 +34,6 @@ public class TestIRC {
 			
 			@Override
 			public void onError(Throwable e) {
-				// TODO Auto-generated method stub
-				
 			}
 		});
 		Thread.sleep(3000);

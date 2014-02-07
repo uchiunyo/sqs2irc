@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<sqsConfig>
+		<AWSAccessKey>access1</AWSAccessKey>
+		<AWSSecretKey>secret1</AWSSecretKey>
+		<SQSURL>endpoint1</SQSURL>
+		<IRCServer>localhost</IRCServer>
+		<IRCPort>1080</IRCPort>
+		<IRCChannel>#test1</IRCChannel>
+		<IRCNickname>testName</IRCNickname>
+	</sqsConfig>
+	<sqsConfig>
+		<AWSAccessKey>access1</AWSAccessKey>
+		<AWSSecretKey>secret1</AWSSecretKey>
+		<SQSURL>endpoint2</SQSURL>
+		<IRCServer>localhost</IRCServer>
+		<IRCPort>1080</IRCPort>
+		<IRCChannel>#test2</IRCChannel>
+		<IRCNickname>testName</IRCNickname>
+	</sqsConfig>
+</config>	
