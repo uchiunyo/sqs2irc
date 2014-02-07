@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- WARNING: Eclipse auto-generated file.
+              Any modifications will be overwritten.
+              To include a user specific buildfile here, simply create one in the same
+              directory with the processing instruction <?eclipse.ant.import?>
+              as the first entry and export the buildfile again. -->
+<project basedir=".." default="create_war" name="SQS2IRCSubscriber">
+    <property environment="env"/>
+    <property name="ECLIPSE_HOME" value="../../../../d_drive_data/eclipse"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.6"/>
+    <property name="source" value="1.6"/>
+    <property name="war.home" value="." />
+    <property name="build.dir" value="build/make" />
+    <property name="junit.output.dir" value="${build.dir}/junit"/>
+    <property name="libs.dir" value="libs" />
+    <property name="test.libs.dir" value="test/libs" />
+    <path id="weblib.libraryclasspath">
+        <pathelement location="WebContent/WEB-INF/lib/aws-java-sdk-1.7.0-javadoc.jar"/>
+        <pathelement location="WebContent/WEB-INF/lib/aws-java-sdk-1.7.0-sources.jar"/>
+        <pathelement location="WebContent/WEB-INF/lib/aws-java-sdk-1.7.0.jar"/>
+        <pathelement location="WebContent/WEB-INF/lib/commons-codec-1.3.jar"/>
+        <pathelement location="WebContent/WEB-INF/lib/commons-logging-1.1.1.jar"/>
+        <pathelement location="WebContent/WEB-INF/lib/h2-1.3.174.jar"/>
+        <pathelement location="WebContent/WEB-INF/lib/httpclient-4.2.3.jar"/>
+        <pathelement location="WebContent/WEB-INF/lib/httpcore-4.2.jar"/>
+        <pathelement location="WebContent/WEB-INF/lib/irc4j.0.0.2.jar"/>
+        <pathelement location="WebContent/WEB-INF/lib/jackson-annotations-2.1.1.jar"/>
+        <pathelement location="WebContent/WEB-INF/lib/jackson-core-2.1.1.jar"/>
+        <pathelement location="WebContent/WEB-INF/lib/jackson-databind-2.1.1.jar"/>
+        <pathelement location="WebContent/WEB-INF/lib/joda-time-2.2.jar"/>
+        <pathelement location="WebContent/WEB-INF/lib/jsonic-1.2.11.jar"/>
+        <pathelement location="WebContent/WEB-INF/lib/lightHttpServer_0.0.17_snapshot.jar"/>
+    </path>
+    <path id="tomcat.libraryclasspath">
+        <pathelement location="${libs.dir}/servlet-api.jar"/>
+    </path>
+    <path id="junit.libraryclasspath">
+        <pathelement location="${test.libs.dir}/junit.jar"/>
+        <pathelement location="${test.libs.dir}/org.hamcrest.core_1.3.0.v201303031735.jar"/>
+    </path>
+    <path id="SQS2IRCSubscriber.classpath">
+        <pathelement location="build/classes"/>
+        <path refid="weblib.libraryclasspath"/>
+        <path refid="tomcat.libraryclasspath"/>
+        <path refid="junit.libraryclasspath"/>
+    </path>
+    <target name="clean">
+        <delete dir="build/plugins"/>
+        <delete dir="${build.dir}"/>
+    </target>
+    <target depends="clean" name="init">
+        <mkdir dir="build/plugins"/>        
+        <mkdir dir="${build.dir}"/>
+        <mkdir dir="${build.dir}/plugins"/>
+        <mkdir dir="${build.dir}/classes"/>
+        <mkdir dir="${build.dir}/test"/>
+        <mkdir dir="${build.dir}/bin"/>
+        <mkdir dir="${build.dir}/junit"/>
+        <copy includeemptydirs="false" todir="${build.dir}/classes">
+            <fileset dir="src">
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy includeemptydirs="false" todir="${build.dir}/test">
+            <fileset dir="test">
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target depends="init" name="build-src">
+        <javac debug="true" debuglevel="${debuglevel}" destdir="${build.dir}/classes" includeantruntime="false" source="${source}" target="${target}">
+            <src path="src"/>
+            <classpath refid="SQS2IRCSubscriber.classpath"/>
+        </javac>
+    </target>
+        <target depends="build-src" name="build-test">
+        <javac debug="true" debuglevel="${debuglevel}" destdir="${build.dir}/test" includeantruntime="false" source="${source}" target="${target}">
+            <src path="test"/>
+            <classpath refid="SQS2IRCSubscriber.classpath"/>
+        </javac>
+    </target>
+    <target depends="build-src,build-test" name="TestConfig">
+        <junit fork="yes" printsummary="withOutAndErr" haltonfailure="yes">
+            <formatter type="xml"/>
+            <test name="test.org.ukiuni.SQS2IRC.TestConfig" todir="${junit.output.dir}"/>
+            <classpath refid="SQS2IRCSubscriber.classpath"/>
+        </junit>
+    </target>
+    <target depends="build-src,build-test" name="TestIRC">
+        <junit fork="yes" printsummary="withOutAndErr" haltonfailure="yes">
+            <formatter type="xml"/>
+            <test name="test.org.ukiuni.SQS2IRC.TestIRC" todir="${junit.output.dir}"/>
+            <classpath refid="SQS2IRCSubscriber.classpath"/>
+        </junit>
+    </target>
+    <target depends="build-src,build-test" name="TestSQS">
+        <junit fork="yes" printsummary="withOutAndErr" haltonfailure="yes">
+            <formatter type="xml"/>
+            <test name="test.org.ukiuni.SQS2IRC.TestSQS" todir="${junit.output.dir}"/>
+            <classpath refid="SQS2IRCSubscriber.classpath"/>
+        </junit>
+    </target>
+    <target depends="build-src,build-test" name="TestExecutorManager">
+        <junit fork="yes" printsummary="withOutAndErr" haltonfailure="yes">
+            <formatter type="xml"/>
+            <test name="test.org.ukiuni.SQS2IRC.TestExecutorManager" todir="${junit.output.dir}"/>
+            <classpath refid="SQS2IRCSubscriber.classpath"/>
+        </junit>
+    </target>
+    
+    <target depends="TestConfig,TestIRC,TestSQS,TestExecutorManager" name="create_war"></target>
+</project>
