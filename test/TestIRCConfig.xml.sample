@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<ircConfig>
+	    <IRCServer>localhost</IRCServer>
+		<IRCPort>6667</IRCPort>
+		<IRCChannel>#sqsirc-test</IRCChannel>
+		<IRCNickname>sqs2irc</IRCNickname>
+	</ircConfig>

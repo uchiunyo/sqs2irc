@@ -10,7 +10,7 @@
     <property name="debuglevel" value="source,lines,vars"/>
     <property name="target" value="1.6"/>
     <property name="source" value="1.6"/>
-    <property name="war.home" value="." />
+    <property name="war.home" value="build/make/bin" />
     <property name="build.dir" value="build/make" />
     <property name="junit.output.dir" value="${build.dir}/junit"/>
     <property name="libs.dir" value="libs" />
@@ -40,7 +40,8 @@
         <pathelement location="${test.libs.dir}/org.hamcrest.core_1.3.0.v201303031735.jar"/>
     </path>
     <path id="SQS2IRCSubscriber.classpath">
-        <pathelement location="build/classes"/>
+        <pathelement location="${build.dir}/classes"/>
+        <pathelement location="${build.dir}/test"/>
         <path refid="weblib.libraryclasspath"/>
         <path refid="tomcat.libraryclasspath"/>
         <path refid="junit.libraryclasspath"/>
@@ -57,6 +58,7 @@
         <mkdir dir="${build.dir}/test"/>
         <mkdir dir="${build.dir}/bin"/>
         <mkdir dir="${build.dir}/junit"/>
+        <mkdir dir="${build.dir}/SQS2IRCSubscriber"/>
         <copy includeemptydirs="false" todir="${build.dir}/classes">
             <fileset dir="src">
                 <exclude name="**/*.java"/>
@@ -108,6 +110,13 @@
             <classpath refid="SQS2IRCSubscriber.classpath"/>
         </junit>
     </target>
-    
-    <target depends="TestConfig,TestIRC,TestSQS,TestExecutorManager" name="create_war"></target>
+    <target depends="TestConfig,TestIRC,TestSQS,TestExecutorManager" name="create_war">
+        <copy todir="${build.dir}/SQS2IRCSubscriber">
+            <fileset dir="WebContent"/>
+        </copy>
+        <copy todir="${build.dir}/SQS2IRCSubscriber/WEB-INF/classes">
+            <fileset dir="${build.dir}/classes"/>
+        </copy>
+        <jar destfile="${build.dir}/bin/SQS2IRCSubscriber.war" basedir="${build.dir}/SQS2IRCSubscriber"></jar>
+    </target>
 </project>
